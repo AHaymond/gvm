@@ -3,8 +3,19 @@ unset GOARCH
 unset GOOS
 unset GOPATH
 unset GOBIN
-export GVM_VERSION=`cat $GVM_ROOT/VERSION`
-export GOROOT=$GVM_ROOT/go
-export GOPATH=$GVM_ROOT/pkgs
-export PATH=$GVM_ROOT/bin:$GVM_ROOT/pkgs/bin:$GVM_ROOT/go/bin:$PATH
+
+unset gvm_go_name
+unset gvm_pkgset_name
+
+mkdir -p "$GVM_ROOT/logs" > /dev/null 2>&1
+mkdir -p "$GVM_ROOT/gos" > /dev/null 2>&1
+mkdir -p "$GVM_ROOT/archive" > /dev/null 2>&1
+mkdir -p "$GVM_ROOT/archive/package" > /dev/null 2>&1
+mkdir -p "$GVM_ROOT/environments" > /dev/null 2>&1
+
+export GVM_VERSION=$(cat "$GVM_ROOT/VERSION")
+export PATH="$GVM_ROOT/bin:$PATH"
+export GVM_PATH_BACKUP="$PATH"
+[ -f "$GVM_ROOT/environments/default" ] && . "$GVM_ROOT/environments/default"
+. "$GVM_ROOT/scripts/env/gvm"
 
